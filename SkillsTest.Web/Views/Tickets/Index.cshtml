@@ -1,0 +1,78 @@
+﻿@using SkillsTest.Web.Infrastructure
+@model SkillsTest.Web.ViewModels.Tickets.IndexViewModel
+@{
+    ViewBag.Title = "Tickets";
+    var isPagerEnabled = Model.TicketsPaged.TotalPageCount > 1;
+}
+@section TitleSection{
+    <div id="page-title">
+        <h1 class="page-header text-overflow">Tickets</h1>
+    </div>
+}
+@section BreadcrumbSection{
+    <ol class="breadcrumb">
+        <li><a href="~/">Home</a></li>
+        <li class="active">Tickets</li>
+    </ol>
+}
+@section StyleSection{}
+@section ScriptSection {
+    <script src="~/Content/plugins/twbs/jquery.twbsPagination.min.js"></script>
+    <script>
+        $('#pagination').twbsPagination({
+            totalPages: @Model.TicketsPaged.TotalPageCount,
+            visiblePages: @Model.TicketsPaged.PageSize,
+            startPage: @Model.TicketsPaged.CurrentPage,
+            prev: '<',
+            first: '<<',
+            next: '>',
+            last: '>>',
+            href: '?page={{number}}&desc=@Model.TicketsPaged.Descending&name=@Model.TicketsPaged.PropertyName'
+        });
+    </script>
+}
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-control">
+            <a class="btn btn-default" href="~/Tickets/Create">
+                <i class="fa fa-plus"></i> Add Ticket
+            </a>
+        </div>
+        <h3 class="panel-title">List of Tickets</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover table-vcenter">
+            <thead>
+                <tr>
+                    <th><a href="/tickets?name=title&desc=@(Model.TicketsPaged.PropertyName == "title" ? (!Model.TicketsPaged.Descending).ToString().ToLower() : "")">Title</a></th>
+                    <th><a href="/tickets?name=description&desc=@(Model.TicketsPaged.PropertyName == "description" ? (!Model.TicketsPaged.Descending).ToString().ToLower() : "")">Description</a></th>
+                    <th><a href="/tickets?name=priority&desc=@(Model.TicketsPaged.PropertyName == "priority" ? (!Model.TicketsPaged.Descending).ToString().ToLower() : "")">Priority</a></th>
+                    <th><a href="/tickets?name=status&desc=@(Model.TicketsPaged.PropertyName == "status" ? (!Model.TicketsPaged.Descending).ToString().ToLower() : "")">Status</a></th>
+                    <th><a href="/tickets?name=createdAt&desc=@(Model.TicketsPaged.PropertyName == "createdAt" ? (!Model.TicketsPaged.Descending).ToString().ToLower() : "")">Date Created</a></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TicketsPaged.Data)
+                {
+                    <tr>
+                        <td>@StringHelper.ToEllipsis(item.Title, 20)</td>
+                        <td>@StringHelper.ToEllipsis(item.Description, 90)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Priority)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                        <td>@DateHelper.TimeAgo(item.CreatedAt)</td>
+                        <td>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if (isPagerEnabled)
+    {
+        <div class="panel-footer">
+            <div class="text-right">
+                <div id="pagination"></div>
+            </div>
+        </div>
+    }
+</div>

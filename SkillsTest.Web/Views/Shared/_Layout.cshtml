@@ -1,0 +1,109 @@
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title | SkillsTest</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/content/css/nifty.min.css" rel="stylesheet">
+    <link href="~/content/css/themes/type-a/theme-light.min.css" rel="stylesheet" />
+    <link href="~/content/css/pace.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/content/plugins/magic-check/css/magic-check.min.css" rel="stylesheet" />
+    @RenderSection("StyleSection", required: false)
+</head>
+<body>
+    <div id="container" class="effect mainnav-lg">
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+                <div class="navbar-header">
+                    <a href="~/" class="navbar-brand">
+                        <img src="~/content/img/logo.png" alt="SkillsTest Logo" class="brand-icon">
+                        <div class="brand-title">
+                            <span class="brand-text">SkillsTest</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="navbar-content clearfix">
+                    <ul class="nav navbar-top-links pull-left">
+                        <li class="tgl-menu-btn">
+                            <a class="mainnav-toggle" href="#">
+                                <i class="fa fa-bars icon-lg"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-top-links pull-right">
+                        <li id="dropdown-user" class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                <div class="username hidden-xs"><i class="fa fa-user"></i> @(((ClaimsIdentity)User.Identity).Name)</div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
+                                <ul class="head-list">
+                                    <li>
+                                        <a href="~/Account/ChangePassword">
+                                            <i class="fa fa-key"></i> Change Pasword
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Account/LogOff">
+                                            <i class="fa fa-sign-out"></i> LogOff
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="boxed">
+            <div id="content-container">
+                @RenderSection("TitleSection", required: false)
+                @RenderSection("BreadcrumbSection", required: false)
+                <div id="page-content">
+                    @RenderBody()
+                </div>
+            </div>
+            <nav id="mainnav-container">
+                <div id="mainnav">
+                    <div id="mainnav-menu-wrap">
+                        <div class="nano">
+                            <div class="nano-content">
+                                <ul id="mainnav-menu" class="list-group">
+                                    <li class="active-link">
+                                        <a href="~/">
+                                            <i class="fa fa-home"></i>
+                                            <span class="menu-title">Home</span>
+                                        </a>
+                                    </li>
+                                    <li class="active-link">
+                                        <a href="~/Tickets">
+                                            <i class="fa fa-file-text-o"></i>
+                                            <span class="menu-title">Tickets</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+        <footer id="footer">
+            <p class="pad-lft">&#0169; @DateTime.Today.Year SkillsTest</p>
+        </footer>
+        <button class="scroll-top btn">
+            <i class="pci-chevron chevron-up"></i>
+        </button>
+    </div>
+    <script src="~/scripts/pace.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/scripts/nifty.min.js"></script>
+    <script src="~/scripts/abcidee.js"></script>
+    @RenderSection("ScriptSection", required: false)
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿@using Recaptcha.Web.Mvc;
+@using SkillsTest.Web.Infrastructure;
+@model SkillsTest.Web.ViewModels.Account.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+<div id="container" class="cls-container">
+    <div class="cls-content">
+        <div class="cls-content-sm panel">
+            <div class="panel-body">
+                <div class="mar-ver pad-btm">
+                    <h3 class="h4 mar-no">Account Login</h3>
+                    <p class="text-muted">Sign In to your account</p>
+                </div>
+                @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.AbcideeValidationSummary()
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter firstname" } })
+                        @Html.AbcideeValidation("Firstname")
+                    </div>
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter lastname" } })
+                        @Html.AbcideeValidation("Lastname")
+                    </div>
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter email" } })
+                        @Html.AbcideeValidation("EmailAddress")
+                    </div>
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter password" } })
+                        @Html.AbcideeValidation("Password")
+                    </div>
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.PasswordConfirmation, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm password" } })
+                        @Html.AbcideeValidation("PasswordConfirmation")
+                    </div>
+                    <div class="form-group">
+                        @Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+                }
+            </div>
+            <div class="pad-all">
+                <a href="~/account/login" class="btn-link">Login</a>
+            </div>
+        </div>
+    </div>
+</div>

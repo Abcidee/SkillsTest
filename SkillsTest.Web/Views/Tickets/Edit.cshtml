@@ -1,0 +1,69 @@
+﻿@using SkillsTest.Web.Infrastructure
+@model SkillsTest.Web.ViewModels.Tickets.EditViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+@section TitleSection{
+    <div id="page-title">
+        <h1 class="page-header text-overflow">Tickets</h1>
+    </div>
+}
+@section BreadcrumbSection{
+    <ol class="breadcrumb">
+        <li><a href="~/">Home</a></li>
+        <li><a href="~/Tickets">Tickets</a></li>
+        <li class="active">Update Ticket</li>
+    </ol>
+}
+@section StyleSection{}
+@section ScriptSection{}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ticket Update Form</h3>
+            </div>
+            @using (Html.BeginForm("Edit", "Tickets", FormMethod.Post, new { @class = "form-horizontal form-padding", role = "form" }))
+            {
+                <div class="panel-body">
+                    @Html.AntiForgeryToken()
+                    @Html.AbcideeValidationSummary()
+                    @Html.HiddenFor(model => model.Ticket.Id)
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Ticket_Title">Title</label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Ticket.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter title" } })
+                            @Html.AbcideeValidation("Ticket.Title")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Ticket_Description">Description</label>
+                        <div class="col-md-9">
+                            @Html.TextAreaFor(model => model.Ticket.Description, new { @class = "form-control", placeholder = "Enter description", rows = "6" })
+                            @Html.AbcideeValidation("Ticket.Description")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Ticket_Priority">Priority</label>
+                        <div class="col-md-9">
+                            @Html.EnumDropDownListFor(model => model.Ticket.Priority, htmlAttributes: new { @class = "form-control" })
+                            @Html.AbcideeValidation("Ticket.Priority")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Ticket_Status">Status</label>
+                        <div class="col-md-9">
+                            @Html.EnumDropDownListFor(model => model.Ticket.Status, htmlAttributes: new { @class = "form-control" })
+                            @Html.AbcideeValidation("Ticket.Status")
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <a class="btn btn-warning" href="~/tickets">Cancel</a>
+                    <a class="btn btn-danger" href="~/tickets/Delete?id=@Model.Ticket.Id">Delete</a>
+                    <button class="btn btn-success" type="submit">Submit</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
