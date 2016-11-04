@@ -22,5 +22,5 @@ Database
 
 Note:
 
-* Created in Visual Studio 2015 Community Editions
+* Created in Visual Studio 2015 Community Edition
 * Bin, obj and Package folders are not included
